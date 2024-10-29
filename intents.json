@@ -1,0 +1,268 @@
+{
+    "intents": [
+        {
+            "tag": "university",
+            "patterns": [
+                "name of this university",
+                "is this muteesa one royal university",
+                "which university is this?",
+                "what is the campus name",
+                "which university is this am interacting with?"
+            ],
+            "responses": [
+                "Located in uganda found in eastern part of africa",
+                "in the central region of uganda"
+            ]
+        },
+        {
+            "tag": "good morning",
+            "patterns": [
+                "morning too",
+                "good morning",
+                "Hey",
+                "How are you",
+                "Is anyone there?",
+                "Hello",
+                "Good day"
+            ],
+            "responses": [
+                "Hey :-)",
+                "Hello",
+                "thanks for visiting",
+                "Hi there",
+                "what can I do for you?",
+                "Hi there",
+                "how can I help?"
+            ]
+        },
+        {
+            "tag": "staff assistants",
+            "patterns": [
+                "all staff assistants",
+                "staff assistants",
+                "list all staff assistants"
+            ],
+            "responses": [
+                "am unable to provide to you such a list of staff assistants"
+            ]
+        },
+        {
+            "tag": "lecturer",
+            "patterns": [
+                "name of lecturers",
+                "lecturer's names"
+            ],
+            "responses": [
+                "lam not supposed to provide you with that information"
+            ]
+        },
+        {
+            "tag": "human resource",
+            "patterns": [
+                "hrm",
+                "human resource management",
+                "human resource system"
+            ],
+            "responses": [
+                "Muteesa has a human resource system de to the fact that it has a vast number of employees"
+            ]
+        },
+        {
+            "tag": "wifi password",
+            "patterns": [
+                "wifi password",
+                "passord for wifi",
+                "what is the wifi password",
+                "tell me the wifi password"
+            ],
+            "responses": [
+                "mru graduate is mru@2023 other are not known"
+            ]
+        },
+        {
+            "tag": "obama stay",
+            "patterns": [
+                "where does obama stay",
+                "obama stay",
+                "home for obama",
+                "where does obama sleep"
+            ],
+            "responses": [
+                "i can't provide you with such sensitive infomation please go meet him and ask"
+            ]
+        },
+        {
+            "tag": "goodbye",
+            "patterns": [
+                "Bye",
+                "Goodbye",
+                "bye bye",
+                "see you next time",
+                "See you later"
+            ],
+            "responses": [
+                "Goodbye! Have a great day!",
+                "Goodbye",
+                "bye bye",
+                "see you next time",
+                "See you later!"
+            ]
+        },
+        {
+            "tag": "semester",
+            "patterns": [
+                "how many intakes in a year",
+                "which intakes offered at mutreesa"
+            ],
+            "responses": [
+                "We have 2 intakes in a year rhats the Feb intake and  the August intake"
+            ]
+        },
+        {
+            "tag": "Thanks",
+            "patterns": [
+                "Thanks",
+                "Thank you",
+                "Thanks a lot"
+            ],
+            "responses": [
+                "You're welcome!",
+                "No problem!",
+                "My Plesure"
+            ]
+        },
+        {
+            "tag": "Short Courses",
+            "patterns": [
+                "Short courses avilable at Muteesa I Royal University",
+                "What are the short courses offered at Muteesa I Royal University",
+                "Which short courses are offered at Muteesa I Royal University"
+            ],
+            "responses": [
+                "Mobile App Dev, Hewei Certificate and CNN"
+            ]
+        },
+        {
+            "tag": "campus",
+            "patterns": [
+                "How many campuses does mru have",
+                "What are the university campuses available"
+            ],
+            "responses": [
+                "Two campuses that is kakeeka campus and Kirumba campus"
+            ]
+        },
+        {
+            "tag": "pay",
+            "patterns": [
+                "pay",
+                "fee payment",
+                "How can l pay for tuition",
+                "how do l pay tuition",
+                "Ways of paying tuition at muteesa I Royal University",
+                "How can l pay for tuition",
+                "methods of paying fees"
+            ],
+            "responses": [
+                "Pay either via centenary bank or by school pay"
+            ]
+        },
+        {
+            "tag": "applying",
+            "patterns": [
+                "How do i apply to this university?",
+                "how do l apply to this university?"
+            ],
+            "responses": [
+                "Apply Online",
+                "download a manual application from our website",
+                "or Visit us at Campuss Submit your completed application form and the supporting documentation Submitting a completed application form does not imply that you have been accepted as a student",
+                "or that you may register. All applicants will be notified of the outcome of their application by the admissions office."
+            ]
+        },
+        {
+            "tag": "programs",
+            "patterns": [
+                "What programs does this university offer?",
+                "programs offered",
+                ""
+            ],
+            "responses": [
+                "Education Engineering Technology Tourism  Art and design"
+            ]
+        },
+        {
+            "tag": "bursary",
+            "patterns": [
+                "can l get tuition assistence or scholarship?"
+            ],
+            "responses": [
+                "The University has different schoolarships ie District Busaries and County basaries"
+            ]
+        },
+        {
+            "tag": "study programs",
+            "patterns": [
+                "What are the study programs available"
+            ],
+            "responses": [
+                "Online Weekend and Day"
+            ]
+        },
+        {
+            "tag": "why",
+            "patterns": [
+                "why"
+            ],
+            "responses": [
+                "sorry",
+                "it's because the Admin is still providing the response to that query",
+                "please come back later you will be provided response in less than 24 hours"
+            ]
+        },
+        {
+            "tag": "greeting",
+            "patterns": [
+                "Hi",
+                "Hey",
+                "How are you",
+                "Is anyone there?",
+                "Hello",
+                "Good day"
+            ],
+            "responses": [
+                "Hey :-)",
+                "Hello",
+                "thanks for visiting",
+                "Hi there",
+                "what can I do for you?",
+                "Hi there",
+                "how can I help?"
+            ]
+        },
+        {
+            "tag": "Library hours",
+            "patterns": [
+                "What are your hours?",
+                "When are you open?"
+            ],
+            "responses": [
+                "We are open from 9 AM to 5 PM",
+                "Monday to Friday."
+            ]
+        },
+        {
+            "tag": "g",
+            "patterns": [
+                "g",
+                "g",
+                "g"
+            ],
+            "responses": [
+                "g",
+                "g",
+                "g"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Landing Page</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1e3c72;
+            color: white;
+            padding: 10px 20px;
+        }
+        .navbar .logo {
+            width: 50px;
+        }
+        .navbar nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .slider {
+            position: relative;
+            max-width: 100%;
+            max-height: 300px;
+            overflow: hidden;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 20%;
+            box-sizing: border-box;
+        }
+        .slide img {
+            width: auto;
+            vertical-align: top;
+        }
+        .caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            background-color: #1e3c72;
+            color: white;
+            text-align: center; 
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .chat-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 1000;
+            transition: width 0.3s, height 0.3s;
+        }
+        .chat-icon span {
+            display: none;
+            position: absolute;
+            bottom: 60px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+        .chat-icon:hover {
+            width: auto;
+            height: auto;
+            padding: 10px;
+        }
+        .chat-icon:hover span {
+            display: block;
+        }
+        .chat-login {
+            display: none;
+            position: fixed;
+            bottom: 90px; /* above the icon*/
+            right: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            height: 400px;
+            z-index: 1001;
+        }
+        .chat-login h1 {
+            margin-top: 0;
+            font-size: 18px;
+            padding: 20px;
+            background-color: #1e3c72;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .bot-head {
+            margin-top: 0;
+            color: white;
+            background-color: #1e3c72;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        .top-head {
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .bot-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-image: url('logo.png'); /* Replace with your logo image */
+            background-size: cover;
+            background-position: center;
+            margin-left: 10px;
+        }
+        .bot-name {
+            width: 80%;
+            margin-left: 50px;
+        }
+        .out {
+            color: blue;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 30px; 
+            margin-top: 10px; 
+            width: 15%;  
+            background-color: white;
+        }
+        .out {
+            background-color: white;
+            color: #1e3c72;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            height: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .out:hover {
+            background-color: #ccc;
+            color: white;
+        }
+        .out a {
+            text-decoration: none;
+        }
+        .tagline {
+            height: 20px;
+            background-color: red;
+            color: white;
+            margin-top: 0;
+        }
+        .chat-login input {
+            width: calc(95% - 40px);
+            padding: 10px;
+            margin: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .chat-area input[type="text"] {
+            width: calc(95% - 40px);
+            padding: 10px;
+            margin: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .chat-login button {
+            width: calc(100% - 40px);
+            padding: 10px;
+            margin: 10px 20px;
+            background-color: #1e3c72;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        /* CHAT AREA STYLING */
+        .chat-area {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            height: 550px;
+            z-index: 1001;
+        }
+        .messages {
+            padding: 20px;
+            height: 350px; /* Set a fixed height for the chat area */
+            overflow-y: scroll;
+            border-bottom: 1px solid #ccc;
+        }
+        .chat-area .messages div {
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .chat-area .messages .user-message {
+            text-align: right;
+        }
+        .chat-area .messages .chatbot-message {
+            text-align: left;
+        }
+        .input-container {
+            display: flex;
+            padding: 10px;
+            background-color: #f0f4f8;
+        }
+        #chatInput {
+            flex: 1;
+            padding: 10px;
+            width: 90%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #sendbtn {
+            color: black;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 50px;
+            height: 40px;
+            margin-top: 10px;
+            margin-left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            font-size: 24px;
+            padding: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        #sendbtn:hover {
+            background-color: #ccc;
+            transform: scale(1.1);
+        }
+        .send-icon {
+            color: black;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        #sendbtn:hover .send-icon {
+            color: white;
+        }
+        .message {
+            position: relative;
+            max-width: 100%;
+            width: 80%; /* Ensures the message div takes the same width as the messages div */
+            word-wrap: break-word;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .user-message .message-content, .chatbot-message .message-content {
+            display: inline-block;
+        }
+        .user-message {
+            align-self: flex-end;
+            background-color: #007bff;
+            color: white;
+            text-align: right;
+            border-bottom-left-radius: 15px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            margin-right: 10px;
+        }
+        .chatbot-message {
+            align-self: flex-start;
+            background-color: #f0f0f0;
+            color: black;
+            text-align: left;
+            border-bottom-right-radius: 15px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            margin-left: 10px;
+        }
+        .timestamp {
+            display: block;
+            font-size: 10px;
+            margin-top: 5px;
+            color: #999;
+            font-weight: normal;
+        }
+        .messages {
+            padding: 20px;
+            height: calc(100% - 150px); /* Adjust this value to keep the input box visible */
+            overflow-y: auto;
+            box-sizing: border-box;
+            border-bottom: 1px solid #ccc;
+        }
+        #sendbtn {
+            background-color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #sendbtn:hover {
+            background-color: #ddd;
+        }
+        #sendbtn:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="https://mru.ac.ug/wp-content/uploads/2022/12/mru-logo.png" alt="University Logo" class="logo">
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+
+    <div class="slider">
+        <div class="slides">
+            <div class="slide">
+                <img src="slide1.jpg" alt="Slide 1">
+                <div class="caption">Slide 1 Caption</div>
+            </div>
+            <div class="slide">
+                <img src="slide2.jpg" alt="Slide 2">
+                <div class="caption">Slide 2 Caption</div>
+            </div>
+            <div class="slide">
+                <img src="slide3.jpg" alt="Slide 3">
+                <div class="caption">Slide 3 Caption</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>Welcome to Our University</h1>
+        <p>Here you can find information about our programs, admissions, and more.</p>
+    </div>
+
+    <div class="footer">
+        <p>© 2023 Muteesa I Royal University</p>
+    </div>
+
+    <div class="chat-icon" onclick="toggleChatLogin()">
+        💬<span>Chat with us!</span>
+    </div>
+
+    <div class="chat-login" id="chatLogin">
+        <div class="bot-head">
+            <div class="top-head">
+                <div class="bot-logo"></div>
+                <div class="bot-name"><h1>Chatbot</h1></div>
+                <button class="out" onclick="toggleChatLogin()">X</button>
+            </div>
+            <p class="tagline">How can I assist you today?</p>
+        </div>
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <button onclick="toggleChatArea()">Login</button>
+    </div>
+
+    <div class="chat-area" id="chatArea">
+        <div class="bot-head">
+            <div class="top-head">
+                <div class="bot-logo"></div>
+                <div class="bot-name"><h1>Chatbot</h1></div>
+                <button class="out" onclick="toggleChatArea()">X</button>
+            </div>
+            <p class="tagline">How can I assist you today?</p>
+        </div>
+        <div class="messages" id="messageContainer"></div>
+        <div class="input-container">
+            <input type="text" id="chatInput" placeholder="Type a message...">
+            <button id="sendbtn"><i class="send-icon">➤</i></button>
+        </div>
+    </div>
+
+    <script>
+        function toggleChatLogin() {
+            var chatLogin = document.getElementById('chatLogin');
+            var chatArea = document.getElementById('chatArea');
+            if (chatArea.style.display === 'block') {
+                chatArea.style.display = 'none';
+            }
+            chatLogin.style.display = chatLogin.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function toggleChatArea() {
+            var chatLogin = document.getElementById('chatLogin');
+            var chatArea = document.getElementById('chatArea');
+            if (chatLogin.style.display === 'block') {
+                chatLogin.style.display = 'none';
+            }
+            chatArea.style.display = chatArea.style.display === 'block' ? 'none' : 'block';
+        }
+
+        var sendButton = document.getElementById('sendbtn');
+        var chatInput = document.getElementById('chatInput');
+        var messageContainer = document.getElementById('messageContainer');
+
+        function sendMessage() {
+            var message = chatInput.value.trim();
+            if (message) {
+                displayMessage(message, 'user-message');
+                chatInput.value = '';
+                setTimeout(function() {
+                    displayMessage('This is a chatbot response.', 'chatbot-message');
+                }, 1000);
+            }
+        }
+
+        function displayMessage(message, className) {
+            var messageElement = document.createElement('div');
+            messageElement.className = className + ' message';
+            var contentElement = document.createElement('div');
+            contentElement.className = 'message-content';
+            contentElement.textContent = message;
+            var timestampElement = document.createElement('div');
+            timestampElement.className = 'timestamp';
+            var timestamp = new Date().toLocaleTimeString();
+            timestampElement.textContent = timestamp;
+            messageElement.appendChild(contentElement);
+            messageElement.appendChild(timestampElement);
+            messageContainer.appendChild(messageElement);
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

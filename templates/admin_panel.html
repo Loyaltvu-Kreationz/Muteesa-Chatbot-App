@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: #1e3c72;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1;
+        }
+        .header .logo {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            margin-left: 5px;
+            margin-top: 0px;
+            border-radius: 50%;
+            background-image: url('static/university_logo.png'); 
+            background-size: cover;
+            background-position: center;
+        }
+        .header h1 {
+            margin: 0;
+            margin-left: -350px;
+        }
+        .header .button-group {
+            display: flex;
+            gap: 10px;
+        }
+        .header button {
+            padding: 10px 20px;
+            margin-right: 40px;
+            cursor: pointer;
+            border: none;
+            background-color: #fff;
+            color: #007bff;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #1e3c72;
+            color: white;
+            position: fixed;
+            height: 100%;
+            top: 100px;
+            border-bottom-right-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: white;
+            color: #1e3c72;
+        }
+        .sidebar a .icon {
+            margin-right: 10px;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 90px 20px 20px; /* Adjusted for fixed header */
+            flex-grow: 1;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #1e3c72;
+        }
+        .card p {
+            color: red; /* color for counts */
+            text-style: bold;
+        }
+        .header h2 {
+            text-align: center;
+            color: white;
+        }
+        .footer {
+            background-color: #1e3c72;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            width: 100%;
+        }
+        .content-wrapper {
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+        }
+        .main-content-wrapper {
+            flex-grow: 1;
+        }
+        .spacer {
+            height: 100px; /* Spacer to push footer below content */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="static\university_logo.png" alt="University Logo" class="logo">
+        <h1>MRU CHATBOT</h1>
+        <h2>Admin Dashboard</h2>
+        <div class="button-group">
+            <button onclick="window.location.href='/admin_login'"> <span class="icon">&#128682;</span> Logout</button>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="sidebar">
+            <br>
+            <br>
+            <a href="/view_intents"><span class="icon">&#128211;</span> Manage Intents</a>
+            <a href="/train"><span class="icon">&#128100;</span> Train Chatbot</a>
+            <a href="/view_users"><span class="icon">&#128100;</span> Manage Users</a>
+            <a href="/view_feedback"><span class="icon">&#128172;</span> Manage Feedback</a>
+            <a href="/update_admin_password"><span class="icon">&#128274;</span> Update Password</a>
+            <a href="{{ url_for('logout') }}"><span class="icon">&#128682;</span> Logout</a>
+        </div>
+
+        <div class="main-content-wrapper">
+            <br>
+            <br>
+            <div class="main-content">
+                <div class="card">
+                    <h3>Registered Users</h3>
+                    <p><span class="icon">&#128100;</span> {{ user_count }}</p>
+                </div>
+                <div class="card">
+                    <h3> Available Intents</h3>
+                    <p><span class="icon">&#128172;</span> {{ intent_count }}</p>
+                </div>
+                <div class="card">
+                    <h3>Unanswered Messages</h3>
+                    <p><span class="icon">&#128172;</span> {{ feed_count }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

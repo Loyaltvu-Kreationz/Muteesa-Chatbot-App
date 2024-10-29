@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRU Chatbot</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <style>
+        body {
+            margin: 0; /* Remove default margin */
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            background-color: lightgrey;
+        }
+        .card {
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            width: 600px;
+            max-width: 100%%;
+            max-height: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .header .logout {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: white;
+            color: blue;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .header .logout:hover {
+            background-color: red;
+            color: white;
+        }
+        .tagline {
+            margin: 0;
+        }
+        .chat-area {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #f1f1f1;
+            margin-top: 0px; /* To ensure space for the header */
+            margin-bottom: 60px; /* To ensure space for the input container */
+            display: flex;
+            flex-direction: column; /* Ensure messages stack vertically */
+        }
+        .input-container {
+            display: flex;
+            background-color: blue;
+            padding: 10px;
+            position: absolute;
+            width: calc(100% - 20px);
+            bottom: 0;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        #userInput {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background-color: white;
+            color: blue;
+            border: none;
+            padding: 10px 15px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: green;
+        }
+        .message {
+            position: relative;
+            max-width: 80%;
+            word-wrap: break-word;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-end; /* Align items to the end */
+        }
+        .user-message {
+            align-self: flex-end;
+            background-color: #007bff;
+            color: white;
+            text-align: right;
+            border-radius: 10px;
+            padding: 10px;
+            align-self: flex-end;
+        }
+        .user-message .message-content {
+            position: relative;
+            display: inline-block;
+            margin-right: 30px; /* Space for user icon */
+        }
+        .user-message img.user-icon {
+            height: 28px;
+            width: 28px;
+            margin-left: 2px;
+        }
+        .chatbot-message {
+            align-self: flex-start;
+            background-color: #d3d3d3;
+            color: black;
+            text-align: left;
+            border-radius: 10px;
+            padding: 10px;
+            align-self: flex-start;
+        }
+        .chatbot-message .message-content {
+            position: relative;
+            display: inline-block;
+            margin-left: 30px; /* Space for chatbot icon */
+        }
+        .chatbot-message img.chatbot-icon {
+            height: 30px;
+            width: 30px;
+            margin-right: 5px;
+        }
+        .header img {
+            height: 75px;
+            width: 100px;
+            position: absolute;
+            top: 3px;
+            left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <header class="header">
+            <img src="static/university_logo.png" alt="University Logo"> <!-- Replace with your logo -->
+            <h1>MRU Chatbot</h1>
+            <p class="tagline">Providing Genuine Assistance to Students</p>
+            <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+        </header>
+
+        <div class="chat-area" id="chatArea">
+            <!-- Chat messages will be dynamically added here -->
+        </div>
+
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button onclick="sendMessage()"> 
+                <svg class="send-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var userInput = document.getElementById("userInput").value.trim();
+        
+            if (userInput === "") {
+                return;
+            }
+        
+            // Create user message element
+            var userMessageElement = document.createElement("div");
+            userMessageElement.classList.add("message", "user-message");
+            userMessageElement.innerHTML = '<div class="message-content">' + userInput + '</div><img class="user-icon" src="static/user_icon.png" alt="User Icon">';
+        
+            // Append user message to chat area
+            var chatArea = document.getElementById("chatArea");
+            chatArea.appendChild(userMessageElement);
+        
+            // Clear input field
+            document.getElementById("userInput").value = "";
+        
+            // Scroll to bottom of chat area
+            chatArea.scrollTop = chatArea.scrollHeight;
+        
+            // Send user message to server and get chatbot response
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                var chatbotResponse = data.response;
+                var needsFeedback = data.needs_feedback; // Assume server response includes this flag
+                
+                // Create chatbot message element
+                var chatbotMessageElement = document.createElement("div");
+                chatbotMessageElement.classList.add("message", "chatbot-message");
+                chatbotMessageElement.innerHTML = '<img class="chatbot-icon" src="static/chatbot_icon.png" alt="Chatbot Icon"><div class="message-content">' + chatbotResponse + '</div>';
+                
+                // Append chatbot message to chat area
+                chatArea.appendChild(chatbotMessageElement);
+        
+                // Prompt for feedback if needed
+                if (needsFeedback) {
+                    var feedbackMessageElement = document.createElement("div");
+                    feedbackMessageElement.classList.add("message", "chatbot-message");
+                    feedbackMessageElement.innerHTML = '<img class="chatbot-icon" src="static/chatbot_icon.png" alt="Chatbot Icon"><div class="message-content">Was this response helpful? <button onclick="sendFeedback(\'yes\')">Yes</button> <button onclick="sendFeedback(\'no\')">No</button></div>';
+                    chatArea.appendChild(feedbackMessageElement);
+                }
+        
+                // Scroll to bottom of chat area after adding chatbot message
+                chatArea.scrollTop = chatArea.scrollHeight;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        
+        function sendFeedback(feedback) {
+            fetch('/feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ feedback: feedback })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle server response if needed
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        
+
+        // Add event listener to trigger sendMessage on Enter key press
+        document.getElementById("userInput").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

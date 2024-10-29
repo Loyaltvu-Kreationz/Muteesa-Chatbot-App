@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUTEESA I ROYAL UNIVERSITY</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top small header */
+        .top-header {
+            background-color: lightgray;
+            padding: 5px 90px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            left: 0;
+            right: 0;
+            transition: top 0.3s;
+        }
+
+        .left-info {
+            display: flex;
+            gap: 20px; 
+            color: grey;
+        }
+        .right-links {
+            display: flex;
+            gap: 25px; 
+            color: grey;
+        }
+
+        .right-links a,  .left-info a {
+            text-decoration: none;
+        }
+        .infoco {
+            
+            color: #888888;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #fff;
+            color:  #1e3c72;
+            padding: 15px 80px;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar-right{
+            margin-left: auto;
+            display: flex;
+            justify-content: space-between;
+            display: flex;
+            gap: 30px; /* Adjust gap as needed */
+        }
+        .navbar-left img {
+            width: 150px; /* Adjust size as needed */
+            height: 150%;
+            padding: 0px 10px;
+            margin-top: 5px;
+        }
+        
+        .navbar-right a {
+            color: #007bff;
+            margin: 0 15px;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .navbar-right a:hover {
+            color: grey;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 10px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f0f0f0;
+            margin-top: 20px;
+        }
+
+        .navbar-right .fa {
+            margin-left: 5px;
+        }
+
+        /* Sliding container */
+        .sliding-container {
+            width: 100%;
+            height: 600px; /* Adjust height as needed */
+            position: relative;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide1 { background-image: url('static/muteesabg.jpg'); }
+        .slide2 { background-image: url('static/sitting.jpg'); }
+        .slide3 { background-image: url('static/Library.jpg'); }
+
+        .slider-text {
+            text-align: left;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0) 100%); /* Dark gradient background */
+            padding: 20px;
+            border-radius: 5px;
+            /* margin-left: 50px; */
+            
+            bottom: 20px;
+        }
+
+        .slider-text h1 {
+            font-size: 5em;
+            margin-top: 70px;
+            margin-bottom: 20px;
+            margin-left: 50px;
+        }
+
+        .cta-buttons {
+            margin-top: 20px;
+            margin-left: 50px;
+        }
+
+        .cta-button1{
+            display: inline-block;
+            padding: 20px 30px;
+            background-color: #1e3c72;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+        .cta-button2 {
+            display: inline-block;
+            padding: 20px 30px;
+            border: 1px solid #1e3c72;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button1:hover {
+            background-color: green;
+        }
+        .cta-button2:hover {
+            background-color: green;
+            border: 2px solid green;
+        }
+
+        .cta-button i {
+            margin-left: 10px;
+        }
+
+        /* Tours */
+        .tours {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            height: 100px;
+            position: absolute;
+            bottom: 20px;
+            z-index: 1;
+            flex-direction: row;
+        }
+        .tour1, .tour2, .tour3 {
+            width: 20%;
+            height: 100%;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .tour1{
+            background-color: #0864c7;
+        }
+        .tour2{
+            background-color: #4d87c5;
+        }
+        .tour3{
+            background-color: #1e3c72;
+        }
+        .tour1 a, .tour2 a, .tour3 a {
+            text-decoration: none;
+            
+            
+            color: white;
+        }
+
+        .ico {
+            text-decoration: none;
+            margin-right: 10px;
+            
+            color: white;
+        }
+
+        .tour1 a:hover, .tour2 a:hover, .tour3 a:hover {
+            text-decoration: underline;
+
+        }
+
+        .block{
+            width: 100%;
+            height: auto;
+            padding: 20px 30px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: row;
+        }
+        .leftblock{
+            width: 50%;
+            background-color: #fff;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1e3c72;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+
+
+
+        /* .......chatting area..... */
+        
+        .chat-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 1000;
+            transition: width 0.3s, height 0.3s;
+        }
+        .chat-icon span {
+            position: absolute;
+            bottom: 50px;
+            background-color: white;
+            color: black;
+            padding: 5px 10px;
+            font-size: medium;
+            border-top-right-radius: 15px;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            margin-left: -150px;
+            white-space: nowrap;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .chat-icon:hover {
+            width: auto;
+            height: auto;
+            padding: 10px;
+        }
+        .chat-icon:hover span {
+            display: block;
+        }
+        .chat-login {
+            display: none;
+            position: fixed;
+            bottom: 90px; /* above the icon*/
+            right: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            height: 400px;
+            z-index: 1001;
+        }
+         .login-head {
+            margin-top: -5px;
+            padding: 20px 20px;
+            height: 10vh;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: #1e3c72;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .login-logo{
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            margin-left: 1px;
+            margin-top: 1px;
+            border-radius: 50%;
+            background-image: url('static/university_logo.png'); 
+            background-size: cover;
+            background-position: center;
+        }
+        .login-title{
+            width: 80%;
+            height: 9vh;
+            margin-left: 5px;
+            color: white;
+            margin-top: -5px;
+        }
+
+        .bot-head, logo-head {
+            margin-top: 0;
+            color: white;
+            background-color: #1e3c72;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+           display: flex;
+           flex-direction: column;
+        }
+        .top-head{
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+        }
+        .bot-name{
+            width: 80%;
+            margin-left: 20px;
+        }
+        .bot-logo{
+            width: 18%;
+            height: 50px;
+            background-color: white;
+            margin-top: 10px;
+            border-radius: 50%;
+            background-image: url('static/university_logo.png'); 
+            background-size: cover;
+            background-position: center;
+            margin-left: 10px;
+        }
+     
+        .bot-tagline{
+            width: 100%;;
+        }
+        .out {
+            background-color: white;
+            color: #1e3c72;
+            padding: 10px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            height: 15px;
+            width: 12%;
+            margin: 20px;
+            margin-right: 5px;
+            margin-left: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .out:hover {
+            background-color: #ccc;
+            color: white;
+        }
+        .out a{
+            text-decoration: none;
+        }
+        .tagline{
+            height: 20px;
+            background-color: red;
+            color: white;
+            margin-top: 0;
+            margin-left: 40px;
+        }
+        .chat-login input {
+            width: calc(95% - 40px);
+            padding: 10px;
+            margin: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .chat-area input[type="text"] {
+            width: calc(95% - 40px);
+            padding: 10px;
+            margin: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .chat-login button {
+            width: calc(100% - 40px);
+            padding: 10px;
+            margin: 10px 20px;
+            background-color: #1e3c72;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+       /* CHAT AREA STYLING */
+
+        .chat-area {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            height: 540px;
+            z-index: 1001;
+        }
+       
+        .messages {
+            padding: 20px;
+            height: 350px; /* Set a fixed height for the chat area */
+            overflow-y: scroll;
+            border-bottom: 1px solid #ccc;
+        }
+        .chat-area .messages div {
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .chat-area .messages .user-message {
+            text-align: right;
+        }
+        .chat-area .messages .chatbot-message {
+            text-align: left;
+        }
+        .input-container {
+            display: flex;
+            padding: 10px;
+            background-color: #f0f4f8;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        #chatInput {
+            flex: 1;
+            padding: 10px;
+            width: 90%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #sendbtn {
+            color: black;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 50px;
+            height: 40px;
+            margin-top: 10px;
+            margin-left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            font-size: 24px;
+            padding: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        #sendbtn:hover {
+            background-color: #ccc;
+            transform: scale(1.1);
+        }
+        .send-icon {
+            color: black;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        #sendbtn:hover .send-icon {
+            color: white;
+        }
+        .message {
+            position: relative;
+            max-width: 100%;
+            width: 80%; /* Ensures the message div takes the same width as the messages div */
+            word-wrap: break-word;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .user-message .message-content, .chatbot-message .message-content {
+            display: inline-block;
+        }
+        .user-message {
+            align-self: flex-end;
+            background-color: #007bff;
+            color: white;
+            text-align: right;
+            border-bottom-left-radius: 15px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            padding: 10px;
+        }
+        .user-message img {
+            height: 40px;
+            width: 40px;
+            margin-right: 1px;
+            margin-left: 10px;
+        }
+        .chatbot-message {
+            align-self: flex-start;
+            background-color: #d3d3d3;
+            color: black;
+            text-align: left;
+            padding: 10px;
+            border-bottom-right-radius: 15px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            padding: 10px;
+        }
+        .chatbot-message img {
+            height: 30px;
+            width: 30px;
+            margin-left: 0px;
+            margin-right: 2px;
+        }
+        /* Make scrollbar always visible */
+        .chat-area .messages::-webkit-scrollbar {
+            width: 10px;
+        }
+        .chat-area .messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .chat-area .messages::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        .chat-area .messages::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+    
+
+    </style>
+</head>
+<body>
+
+    <!-- Top Small Header -->
+    <div class="top-header">
+        <div class="left-info">
+            <a href="#"><span class="infoco">&#x2709;</span> info@mru.ac.ug</a>
+            <a href="#"><span class="infoco">&#x1F4DE;</span> 0414670109</a>
+
+            <p></p>
+        </div>
+        <div class="right-links">
+            <a href="#">E-Portal</a>
+            <a href="#">Library</a>
+            <a href="#">Alumni</a>
+            <a href="#">Apply Now</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-left">
+            <img src="static/mru_logo.png" alt="MRU Logo">
+        </div>
+        <div class="navbar-right">
+            <a href="#">Home</a>
+            <div class="dropdown">
+                <a href="#">About Us <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">Mission</a>
+                    <a href="#">History</a>
+                    <a href="#">Leadership</a>
+                </div>
+            </div>
+            <a href="#">Programmes</a>
+            <div class="dropdown">
+                <a href="#">Study At MRU <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">Admissions</a>
+                    <a href="#">Scholarships</a>
+                    <a href="#">Campus Tour</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#">Campus Life <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">Clubs & Organizations</a>
+                    <a href="#">Residential Life</a>
+                    <a href="#">Events</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#">Publications <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">Research Papers</a>
+                    <a href="#">Newsletters</a>
+                    <a href="#">Journals</a>
+                </div>
+            </div>
+            <a href="#"><i class="fa fa-search"></i></a>
+        </div>
+    </div>
+
+    <!-- Sliding Container -->
+    <div class="sliding-container">
+        <div class="slide slide1"></div>
+        <div class="slide slide2"></div>
+        <div class="slide slide3"></div>
+        <div class="slider-text">
+            <h1>The Leading <br> Chartered Royal <br>University</h1>
+            <div class="cta-buttons">
+                <a href="#" class="cta-button1">Apply now <i class="fa fa-arrow-right"></i></a>
+                <a href="#" class="cta-button2">View all programs <i class="fa fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Web Tours -->
+        <div class="tours">
+            <div class="tour1">
+                <a href="#"> <span class=" ico">&#x1F6EB;</span>Take a Tour </a>
+            </div>
+            <div class="tour2">
+                <a href="#"> <span class=" ico">&#x2139;</span>Campus Information </a>
+            </div>
+            <div class="tour3">
+                <a href="#"> <span class=" ico">&#x2705;</span>Apply Now </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="block">
+        <div class="leftblock">image</div>
+        <div class="rightblock">
+            <h1>Study At Muteesa I Royal University</h1>
+            <p>
+                Welcome to our university website! Use the search bar below to explore our diverse range of programs and 
+                discover the perfect academic path that suits your interests and career goals.
+            </p>
+            <div class="search-area"></div>
+        </div>
+
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">Terms of Use</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <p>&copy; 2024 Muteesa I Royal University. All rights reserved.</p>
+    </footer>
+
+
+
+<!-- ...................ADDING CHATBOT THINGS NOW................ -->
+
+
+<div class="chat-icon" onclick="toggleChatLogin()">
+    💬 
+    <span>
+        Student ChatBot</span>
+</div>
+
+<div class="chat-login" id="chat-login">
+    <div class="login-head">
+        <div class="login-logo">        </div>
+        <div class="login-title">
+                <center>
+                    <p>
+                        STUDENT CHATBOT
+                        <hr>
+                        Login Now
+                    </p>
+                </center>
+        </div>
+    </div>
+    <div class="login-form">
+        <br>
+        <input type="text" id="loginUsername" name="name" placeholder="Username" required>
+        <label class="spacce"></label>
+        <input type="password" id="loginPassword" name="password" placeholder="Password" required>
+        <button  onclick="login()">Login</button>
+        <center> <p id="loginError" style="color: red; display: none; margin-left: 20px; margin-right: 20px;">Invalid username or password. Please try again.</p> </center>
+   
+    </div>
+</div>
+
+<div class="chat-area" id="chatArea">
+    <div class="bot-head">  
+        <div class="top-head">
+            <div class="bot-logo">    </div>
+            <div class="bot-name"> <center><h2>STUDENT  CHATBOT<hr></h2></center> </div>
+            <div class="out"> <center>  <a href="{{ url_for('logout') }}" class="logout">Logout</a></center> </div>
+        </div>
+        <br>
+        <div class="bot-tagline"><center><p>Providing Genuine Assistance/Support to Students</p></center> </div>  
+    </div>
+    <div class="messages" id="messages">
+        <!-- Chat messages will go here -->
+    </div>
+    <div class="input-container">
+        <input type="text" id="chatInput" placeholder="Type your message here...">
+        <button id="sendbtn" onclick="sendMessage()">
+            <span class="send-icon">&#10148;</span>
+        </button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <!-- Font Awesome CDN (for dropdown caret icon) -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+
+
+
+
+        // Function to handle login
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            const loginError = document.getElementById('loginError');
+
+            fetch('/user_login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Login successful, update isLoggedIn status
+                    isLoggedIn = true;
+                    
+                    document.getElementById('chatArea').style.display = 'block';
+                    document.getElementById('chat-login').style.display = 'none';
+                    loginError.style.display = 'none';
+                } else {
+                    // Login failed, show error message
+                    loginError.style.display = 'block';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Ensure chat-area remains hidden on page load until login
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatArea = document.getElementById('chatArea');
+            chatArea.style.display = 'none';
+        });
+
+        // Chat icon click event
+        document.querySelector('.chat-icon').addEventListener('click', () => {
+            document.getElementById('chat-login').style.display = 'block';
+        });
+
+            // Function to toggle chat login and chat area visibility
+   
+   function toggleChatLogin() {
+    var chatLogin = document.getElementById("chat-login");
+    var chatArea = document.getElementById("chatArea");
+    if (chatLogin.style.display === "none" || chatLogin.style.display === "") {
+        chatLogin.style.display = "block";
+    } else {
+        chatLogin.style.display = "none";
+    }
+}
+
+
+function sendMessage() {
+    var chatInput = document.getElementById("chatInput").value.trim();
+
+    if (chatInput === "") {
+        return;
+    }
+
+    var userMessageElement = document.createElement("div");
+    userMessageElement.classList.add("message", "user-message");
+    userMessageElement.innerHTML = '<div class="message-content">' + chatInput + '</div><img class="user-icon" src="static/user_icon.png" alt="User Icon">';
+
+    var messages = document.getElementById("messages");
+    messages.appendChild(userMessageElement);
+
+    document.getElementById("chatInput").value = "";
+
+    messages.scrollTop = messages.scrollHeight;
+
+    fetch('/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: chatInput })
+    })
+    .then(response => response.json())
+    .then(data => {
+        var chatbotResponse = data.response;
+
+        var chatbotMessageElement = document.createElement("div");
+        chatbotMessageElement.classList.add("message", "chatbot-message");
+        chatbotMessageElement.innerHTML = '<img class="chatbot-icon" src="static/chatbot_icon.png"  alt="Chatbot Icon"><div class="message-content">' + chatbotResponse + '</div>';
+
+        messages.appendChild(chatbotMessageElement);
+
+        messages.scrollTop = messages.scrollHeight;
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+
+// JavaScript for dropdown menu
+document.addEventListener("DOMContentLoaded", function() {
+    // Get all dropdowns
+    var dropdowns = document.querySelectorAll(".dropdown");
+
+    // Add event listener to each dropdown
+    dropdowns.forEach(function(dropdown) {
+        var dropdownToggle = dropdown.querySelector("a");
+        var dropdownContent = dropdown.querySelector(".dropdown-content");
+
+        // Show dropdown content on hover
+        dropdownToggle.addEventListener("mouseover", function() {
+            dropdownContent.style.display = "block";
+        });
+
+        // Hide dropdown content on mouseout
+        dropdown.addEventListener("mouseout", function(event) {
+            // Check if mouse is not on dropdown or its children
+            if (!dropdown.contains(event.relatedTarget)) {
+                dropdownContent.style.display = "none";
+            }
+        });
+    });
+
+    // Slide functionality
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".slide");
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.style.opacity = i === index ? 1 : 0;
+        });
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+    }
+
+    setInterval(nextSlide, 6000); // Change slide every 6 seconds
+
+    // Initial display
+    showSlide(currentSlide);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>
